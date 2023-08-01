@@ -14,7 +14,11 @@ function App() {
           </div>
         </div>
       </header>
-      <main></main>
+      <main>
+        <div>
+          <div></div>
+        </div>
+      </main>
     </React.Fragment>
   );
 }
