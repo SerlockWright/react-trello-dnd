@@ -79,3 +79,22 @@ main {
   width: 100%;
   border-radius: 50%;
 }
+
+.container {
+  width: 100%;
+  /* height: calc(100vh -70px); */
+  position: relative;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  white-space: nowrap;
+  height: 100%;
+  padding: 8px 15px 0 15px;
+}
+
+.cardList {
+  border-radius: 3px;
+}
