@@ -1,11 +1,15 @@
-import { Card, Popconfirm, Tooltip } from "antd";
+import { Avatar, Card, Popconfirm, Tooltip } from "antd";
 import React from "react";
 import {
   FileTextOutlined,
   EditOutlined,
   QuestionCircleOutlined,
   DeleteOutlined,
+  UserOutlined,
+  AntDesignOutlined,
 } from "@ant-design/icons";
+
+const { Meta } = Card;
 
 function TrelloCard() {
   return (
@@ -29,7 +33,40 @@ function TrelloCard() {
             </Tooltip>
           </Popconfirm>,
         ]}
-      ></Card>
+      >
+        <Meta
+          title="Learn Javascript"
+          description={
+            <>
+              <div>This is description</div>
+              <Avatar.Group
+                maxCount={2}
+                maxPopoverTrigger="click"
+                size="large"
+                maxStyle={{
+                  color: "#f56a00",
+                  backgroundColor: "#fde3cf",
+                  cursor: "pointer",
+                }}
+                className="avatarGroup"
+              >
+                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+                <Tooltip title="Ant User" placement="top">
+                  <Avatar
+                    style={{ backgroundColor: "#87d068" }}
+                    icon={<UserOutlined />}
+                  />
+                </Tooltip>
+                <Avatar
+                  style={{ backgroundColor: "#1890ff" }}
+                  icon={<AntDesignOutlined />}
+                />
+              </Avatar.Group>
+            </>
+          }
+        ></Meta>
+      </Card>
     </div>
   );
 }

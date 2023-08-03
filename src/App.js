@@ -1,6 +1,6 @@
 import React from "react";
 import Avatar from "./assets/images/personal.jpg";
-import { Button, Card, Popconfirm, Tooltip } from "antd";
+import { Button, Card, Form, Modal, Popconfirm, Tooltip } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -53,6 +53,15 @@ function App() {
           </div>
         </div>
       </main>
+
+      <Modal title="Add Card">
+        <br />
+        <Form
+          name="basic"
+        >
+
+        </Form>
+      </Modal>
     </React.Fragment>
   );
 }
