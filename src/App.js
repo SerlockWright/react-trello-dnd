@@ -23,6 +23,7 @@ const { TextArea } = Input;
 function App() {
   const [form] = Form.useForm();
   const [openModalAddCard, setOpenModalAddCard] = React.useState(false);
+  const [confirmLoading, setConfirmLoading] = React.useState(false);
 
   const handleCancel = () => {
     setOpenModalAddCard(false);
@@ -88,6 +89,7 @@ function App() {
         open={openModalAddCard}
         onCancel={handleCancel}
         onOk={form.submit}
+        confirmLoading={confirmLoading}
       >
         <br />
         <Form
