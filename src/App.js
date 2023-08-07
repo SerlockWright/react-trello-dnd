@@ -68,6 +68,7 @@ function App() {
                     title="Delete the list"
                     description="Are you sure to delete this list?"
                     icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                    className="ml-10"
                   >
                     <Tooltip title="Delete this list">
                       <Button shape="circle" icon={<DeleteOutlined />} />
