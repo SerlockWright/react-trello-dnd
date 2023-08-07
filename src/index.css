@@ -145,3 +145,22 @@ main {
 .selectField .ant-avatar {
   margin-left: 0;
 }
+
+.listContainer {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.todoList {
+  border-radius: 3px;
+  display: flex;
+  margin: 0 25px 0 0;
+  max-height: 100%;
+  max-width: 300px;
+  min-width: 300px;
+  padding: 5px;
+  word-break: break-all;
+}
