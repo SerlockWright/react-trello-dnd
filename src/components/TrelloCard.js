@@ -46,7 +46,7 @@ function TrelloCard({ card, index }) {
               title={card.title}
               description={
                 <>
-                  <div>This is description</div>
+                  <div>{card.description}</div>
                   <Avatar.Group
                     maxCount={2}
                     maxPopoverTrigger="click"

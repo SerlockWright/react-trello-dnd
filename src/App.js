@@ -29,8 +29,20 @@ function App() {
     setOpenModalAddCard(false);
   };
 
-  const onDragEnd = () => {
+  const onDragEnd = (result) => {
     // the only one that is required
+    console.log("onDragEnd", result);
+    const { type, source, destination } = result;
+
+    //Case: nothing
+    if (!destination) {
+      alert("No happened!");
+      return;
+    }
+
+    //drag and drop list
+    if (type === "LIST") {
+    }
   };
 
   return (

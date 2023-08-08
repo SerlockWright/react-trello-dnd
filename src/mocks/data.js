@@ -16,18 +16,22 @@ export const data = {
     "card-1-1": {
       id: "card-1-1",
       title: "card-1-1",
+      description: "Learn JS",
     },
     "card-1-2": {
       id: "card-1-2",
       title: "card-1-2",
+      description: "Learn NodeJS",
     },
     "card-2-1": {
       id: "card-2-1",
       title: "card-2-1",
+      description: "Learn SQL",
     },
     "card-2-2": {
       id: "card-2-2",
       title: "card-2-2",
+      description: "Learn Mongo",
     },
   },
 };
