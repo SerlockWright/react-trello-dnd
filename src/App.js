@@ -24,6 +24,7 @@ function App() {
   const [form] = Form.useForm();
   const [openModalAddCard, setOpenModalAddCard] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
+  const [todos, setTodos] = React.useState(data);
 
   const handleCancel = () => {
     setOpenModalAddCard(false);
@@ -42,6 +43,42 @@ function App() {
 
     //drag and drop list
     if (type === "LIST") {
+    }
+
+    //Card
+    //1. drag and drop same list
+    if (source.droppableId === destination.droppableId) {
+      // const listItem = todos.lists[destination.droppableId];
+      // const cards = listItem.cards;
+      // [cards[source.index], cards[destination.index]] = [
+      //   cards[destination.index],
+      //   cards[source.index],
+      // ];
+      // setTodos((prevState) => ({
+      //   ...prevState,
+      //   lists: {
+      //     ...prevState.lists,
+      //     [destination.droppableId]: {
+      //       ...prevState.lists[destination.droppableId],
+      //       cards: cards,
+      //     },
+      //   },
+      // }));
+      // return;
+      const listId = destination.droppableId;
+      const listItem = todos.lists[listId];
+      const cardItem = listItem.cards.splice(source.index, 1)[0];
+      listItem.cards.splice(destination.index, 0, cardItem);
+      setTodos((prevState) => ({
+        ...prevState,
+        lists: {
+          ...prevState.lists,
+          [listId]: {
+            ...prevState.lists[listId],
+            cards: listItem.cards,
+          },
+        },
+      }));
     }
   };
 

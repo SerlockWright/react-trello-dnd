@@ -4,7 +4,7 @@ export const data = {
     "list-1": {
       id: "list-1",
       title: "List 1",
-      cards: ["card-1-1", "card-1-2"],
+      cards: ["card-1-1", "card-1-2", "card-1-3"],
     },
     "list-2": {
       id: "list-2",
@@ -22,6 +22,11 @@ export const data = {
       id: "card-1-2",
       title: "card-1-2",
       description: "Learn NodeJS",
+    },
+    "card-1-3": {
+      id: "card-1-3",
+      title: "card-1-3",
+      description: "Learn NuxtJS",
     },
     "card-2-1": {
       id: "card-2-1",
