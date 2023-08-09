@@ -80,6 +80,30 @@ function App() {
         },
       }));
     }
+    //2. drag and drop card between list
+    const sourceListId = source.droppableId;
+    const destinationListId = destination.droppableId;
+    const sourList = todos.lists[sourceListId];
+    const destinationList = todos.lists[destinationListId];
+    const sourceCard = Array.from(sourList.cards);
+    const destinationCard = Array.from(destinationList.cards);
+    const [movedCard] = sourceCard.splice(source.index, 1);
+    destinationCard.splice(destination.index, 0, movedCard);
+
+    setTodos((prevState) => ({
+      ...prevState,
+      lists: {
+        ...prevState.lists,
+        [sourceListId]: {
+          ...sourList,
+          cards: sourceCard,
+        },
+        [destinationListId]: {
+          ...destinationList,
+          cards: destinationCard,
+        },
+      },
+    }));
   };
 
   return (
