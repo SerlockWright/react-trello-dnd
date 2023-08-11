@@ -8,7 +8,14 @@ import {
 import TrelloCard from "./TrelloCard";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-function TrelloList({ cards, listItem, index }) {
+function TrelloList({
+  cards,
+  listItem,
+  index,
+  openModalAddCard,
+  handleAddCard,
+  onDeleteCard,
+}) {
   return (
     <Draggable index={index} draggableId={String(listItem.id)}>
       {(provided) => (
@@ -29,7 +36,7 @@ function TrelloList({ cards, listItem, index }) {
                         <Button
                           shape="circle"
                           icon={<PlusOutlined />}
-                          onClick={() => {}}
+                          onClick={handleAddCard}
                         />
                       </Tooltip>
                       <Popconfirm
@@ -49,7 +56,12 @@ function TrelloList({ cards, listItem, index }) {
                   className="cardList"
                 >
                   {cards.map((card, cardIndex) => (
-                    <TrelloCard key={card.id} index={cardIndex} card={card} />
+                    <TrelloCard
+                      key={card.id}
+                      index={cardIndex}
+                      card={card}
+                      onDeleteCard={onDeleteCard}
+                    />
                   ))}
                 </Card>
                 {provided.placeholder}

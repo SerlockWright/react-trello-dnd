@@ -23,11 +23,40 @@ const { TextArea } = Input;
 function App() {
   const [form] = Form.useForm();
   const [openModalAddCard, setOpenModalAddCard] = React.useState(false);
-  const [confirmLoading, setConfirmLoading] = React.useState(false);
+  // const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [todos, setTodos] = React.useState(data);
 
   const handleCancel = () => {
     setOpenModalAddCard(false);
+  };
+
+  const handleAddCard = () => {
+    setOpenModalAddCard(true);
+  };
+
+  const handleDeleteCard = (cardId) => {
+    const cloneTodo = {
+      ...todos,
+      lists: {
+        ...todos.lists,
+      },
+      cards: {
+        ...todos.cards,
+      },
+    };
+
+    console.log(cloneTodo);
+
+    delete cloneTodo.cards[cardId];
+    console.log(cloneTodo);
+
+    Object.keys(cloneTodo.lists).forEach((listId) => {
+      cloneTodo.lists[listId].cards = cloneTodo.lists[listId].cards.filter(
+        (card) => card !== cardId
+      );
+    });
+
+    setTodos(cloneTodo);
   };
 
   const onDragEnd = (result) => {
@@ -39,10 +68,6 @@ function App() {
     if (!destination) {
       alert("No happened!");
       return;
-    }
-
-    //drag and drop list
-    if (type === "LIST") {
     }
 
     //Card
@@ -79,31 +104,43 @@ function App() {
           },
         },
       }));
+      return;
     }
-    //2. drag and drop card between list
-    const sourceListId = source.droppableId;
-    const destinationListId = destination.droppableId;
-    const sourList = todos.lists[sourceListId];
-    const destinationList = todos.lists[destinationListId];
-    const sourceCard = Array.from(sourList.cards);
-    const destinationCard = Array.from(destinationList.cards);
-    const [movedCard] = sourceCard.splice(source.index, 1);
-    destinationCard.splice(destination.index, 0, movedCard);
+    //2. drag and drop card between lists
+    if (source.droppableId !== destination.droppableId) {
+      const sourceId = source.droppableId;
+      const destId = destination.droppableId;
+      const sourceItem = todos.lists[sourceId];
+      const destItem = todos.lists[destId];
+      const cardItem = sourceItem.cards.splice(source.index, 1)[0];
+      destItem.cards.splice(destination.index, 0, cardItem);
+      setTodos((prevState) => ({
+        ...prevState,
+        lists: {
+          ...prevState.lists,
+          [sourceId]: {
+            ...prevState.lists[sourceId],
+            cards: sourceItem.cards,
+          },
+          [destId]: {
+            ...prevState.lists[destId],
+            cards: destItem.cards,
+          },
+        },
+      }));
+    }
+    //drag and drop list
+    if (type === "LIST") {
+      const updatedColumnOrder = todos.columns;
+      const [draggedList] = updatedColumnOrder.splice(source.index, 1);
+      updatedColumnOrder.splice(destination.index, 0, draggedList);
+      console.log(updatedColumnOrder);
 
-    setTodos((prevState) => ({
-      ...prevState,
-      lists: {
-        ...prevState.lists,
-        [sourceListId]: {
-          ...sourList,
-          cards: sourceCard,
-        },
-        [destinationListId]: {
-          ...destinationList,
-          cards: destinationCard,
-        },
-      },
-    }));
+      setTodos((prevState) => ({
+        ...prevState,
+        columns: updatedColumnOrder,
+      }));
+    }
   };
 
   return (
@@ -132,10 +169,10 @@ function App() {
                   {...provided.droppableProps}
                   className="listContainer"
                 >
-                  {data.columns.map((listId, listIndex) => {
-                    const listItem = data.lists[listId];
+                  {todos.columns.map((listId, listIndex) => {
+                    const listItem = todos.lists[listId];
                     const cards = listItem.cards.map(
-                      (cardId) => data.cards[cardId]
+                      (cardId) => todos.cards[cardId]
                     );
                     return (
                       <TrelloList
@@ -143,6 +180,9 @@ function App() {
                         index={listIndex}
                         listItem={listItem}
                         cards={cards}
+                        openModalAddCard={openModalAddCard}
+                        handleAddCard={handleAddCard}
+                        onDeleteCard={handleDeleteCard}
                       />
                     );
                   })}
@@ -162,7 +202,7 @@ function App() {
         open={openModalAddCard}
         onCancel={handleCancel}
         onOk={form.submit}
-        confirmLoading={confirmLoading}
+        // confirmLoading={confirmLoading}
       >
         <br />
         <Form

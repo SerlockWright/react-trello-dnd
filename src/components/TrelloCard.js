@@ -1,4 +1,4 @@
-import { Avatar, Card, Popconfirm, Tooltip } from "antd";
+import { Avatar, Card, Modal, Popconfirm, Tooltip } from "antd";
 import React from "react";
 import {
   FileTextOutlined,
@@ -12,7 +12,34 @@ import { Draggable } from "react-beautiful-dnd";
 
 const { Meta } = Card;
 
-function TrelloCard({ card, index }) {
+function TrelloCard({ card, index, onDeleteCard }) {
+  //view Card
+  const handleViewDetail = () => {
+    Modal.info({
+      title: "Card Detail",
+      content: (
+        <>
+          <div>
+            <h4>Title</h4>
+            <div>{card.title}</div>
+          </div>
+          <br />
+          <div>
+            <h4>Description</h4>
+            <div>{card.description}</div>
+          </div>
+          <br />
+        </>
+      ),
+      onOk() {},
+    });
+  };
+
+  //delete Card
+  const handleDeleteCard = () => {
+    onDeleteCard(card.id);
+  };
+
   return (
     <Draggable draggableId={String(card.id)} index={index}>
       {(provided) => (
@@ -26,7 +53,7 @@ function TrelloCard({ card, index }) {
             cover={<img alt="example" src="https://picsum.photos/265/160" />}
             actions={[
               <Tooltip title="View">
-                <FileTextOutlined />
+                <FileTextOutlined onClick={handleViewDetail} />
               </Tooltip>,
               <Tooltip title="Edit">
                 <EditOutlined />
@@ -35,6 +62,7 @@ function TrelloCard({ card, index }) {
                 title="Delete the card"
                 description="Are you sure to delete this card?"
                 icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                onClick={handleDeleteCard}
               >
                 <Tooltip title="Delete">
                   <DeleteOutlined key="ellipsis" />
